@@ -21,16 +21,18 @@ export const loadScript = src => new Promise((resolve, reject) => {
 })
 
 // <link>s do not support onload apparently
-export const loadStylesheet = href => {
+export const loadStylesheet = href => new Promise((resolve, reject) => {
   const link = document.createElement('link')
   link.href = href
-  link.type = 'stylesheet'
+  link.rel = 'stylesheet'
+  link.type = 'text/css'
+  link.onload = () => resolve(link)
+  link.onerror = () => reject(new Error(`Failed to load stylesheet: ${href}`))
   document.head.appendChild(link)
-  return Promise.resolve(link)
-}
+})
 
 export const loadAsset = url => {
   if (/\.m?js$/.test(url) || /\bjs\b/.test(url)) return wrapPromise(loadScript(url))
-  if (/\.css$/.test(url)) return wrapPromise(loadStylesheet(url))
+  if (/\.css$/.test(url) || /bcss\b/.test(url)) return wrapPromise(loadStylesheet(url))
   throw new Error(`Unknown loader for url: ${url}`)
 }

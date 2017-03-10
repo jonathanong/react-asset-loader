@@ -57,14 +57,10 @@ export default class AssetLoader extends Component {
       throw new Error('Exactly 1 child is allowed.')
     }
 
-    const passedProps = Object.assign({}, props, {
+    const child = Children.only(props.children)
+    return cloneElement(child, {
       assets
     })
-
-    delete passedProps.children
-
-    const child = Children.only(props.children)
-    return cloneElement(child, passedProps)
   }
 }
 
