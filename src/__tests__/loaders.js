@@ -5,8 +5,6 @@ import {
   loadAsset
 } from '../loaders'
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000
-
 describe('loadAsset()', () => {
   it('should load stripe.js', async () => {
     const promise = loadAsset('https://js.stripe.com/v2/')
