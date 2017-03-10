@@ -11,56 +11,57 @@ export default class AssetLoader extends Component {
     super(props)
 
     this.state = {
-      assets: {}
+      assets: {},
+      assetsFulfilled: false,
+      assetsRejected: false
     }
   }
 
   componentDidMount () {
-    this.loadAssets()
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.urls !== this.props.urls) {
-      this.loadAssets(nextProps.urls)
-    }
+    this.loadAssets(this.props.urls)
   }
 
   loadAssets (urls) {
     const { assets } = this.state
-    const changes = {}
 
-    ;(urls || this.props.urls).forEach(url => {
+    const promises = urls.map(url => {
       // already loaded
-      if (assets[url]) return
-
       let promise = AssetMap.get(url)
       if (!promise) {
         promise = loadAsset(url)
         AssetMap.set(url, promise)
       }
-
-      changes[url] = promise
+      return promise
     })
 
-    if (Object.keys(changes).length) {
+    this.setState({
+      assets
+    })
+
+    return Promise.all(promises).then(() => {
       this.setState({
-        assets: Object.assign({}, assets, changes)
+        assetsFulfilled: true
       })
-    }
+    }, () => {
+      this.setState({
+        assetsRejected: true
+      })
+    })
   }
 
   render () {
-    const { props } = this
-    const { assets } = this.state
+    const { props, state } = this
 
     if (Children.count(props.children) !== 1) {
       throw new Error('Exactly 1 child is allowed.')
     }
 
     const child = Children.only(props.children)
-    return cloneElement(child, {
-      assets
-    })
+
+    const passedProps = Object.assign({}, props, state)
+    delete passedProps.children
+
+    return cloneElement(child, passedProps)
   }
 }
 
