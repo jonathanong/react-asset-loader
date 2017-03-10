@@ -2,13 +2,16 @@
 
 exports[`should load the assets 1`] = `
 <div
-  assets={Object {}}
-  assetsFulfilled={false}
-  assetsRejected={false}
-  urls={
-    Array [
-      "https://js.stripe.com/v2/",
-    ]
-  }
-/>
+  className="className"
+>
+  <div>
+    {}
+  </div>
+  <div>
+    false
+  </div>
+  <div>
+    false
+  </div>
+</div>
 `;
