@@ -98,9 +98,9 @@ You don't really need to use this. Maybe if you want to "preload" assets.
 [travis-url]: https://travis-ci.org/jonathanong/react-asset-loader
 [codecov-image]: https://img.shields.io/codecov/c/github/jonathanong/react-asset-loader/master.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/jonathanong/react-asset-loader
-[david-image]: http://img.shields.io/david/jonathanong/react-asset-loader.svg?style=flat-square
+[david-image]: https://img.shields.io/david/jonathanong/react-asset-loader.svg?style=flat-square
 [david-url]: https://david-dm.org/jonathanong/react-asset-loader
-[license-image]: http://img.shields.io/npm/l/jongleberry/react-asset-loader.svg?style=flat-square
+[license-image]: https://img.shields.io/github/license/jonathanong/react-asset-loader.svg?style=flat-square
 [license-url]: LICENSE
-[downloads-image]: http://img.shields.io/npm/dm/@jongleberry/react-asset-loader.svg?style=flat-square
-[downloads-url]: https://npmjs.org/package/jongleberry/react-asset-loader
+[downloads-image]: https://img.shields.io/npm/dm/@jongleberry/react-asset-loader.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/@jongleberry/react-asset-loader
