@@ -18,8 +18,10 @@ Useful when you need to load external scripts only on certain components.
 
 ## Example
 
+Define your asset:
+
 ```js
-import AssetLoader, { set } from '@jongleberry/react-asset-loader'
+import { set } from '@jongleberry/react-asset-loader'
 
 set('stripe', {
   url: 'https://js.stripe.com/v2/',
@@ -28,6 +30,12 @@ set('stripe', {
   // this logic will happen before the promise resolves
   resolve: x => x.then(() => Stripe.setPublishableKey('pk_test_somestuff'))
 })
+```
+
+Return a wrapped component:
+
+```js
+import AssetLoader from '@jongleberry/react-asset-loader'
 
 import SomeComponent from '../SomeComponent'
 
@@ -36,7 +44,7 @@ export default AssetLoader(Component, [
 ])
 ```
 
-Only show the component if the Stripe SDK is loaded:
+Only show the original component if the Stripe SDK is loaded:
 
 ```js
 import React, { Component, PropTypes } from 'react'
