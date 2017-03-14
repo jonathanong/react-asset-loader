@@ -1,7 +1,7 @@
 {
   "name": "@jongleberry/react-asset-loader",
   "version": "0.0.0",
-  "description": "",
+  "description": "React asset loader",
   "main": "dist",
   "scripts": {
     "lint": "eslint . --fix",
