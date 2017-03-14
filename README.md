@@ -10,11 +10,76 @@
 A wrapper component that loads assets for you.
 Useful when you need to load external scripts only on certain components.
 
-- Loads scripts only once per URL globally.
+- Define asset URLs globally by name.
+- Loads assets only once per URL globally.
 - Option to add global callbacks to scripts loads.
 - Supports CSS.
 - Simplified control flow using promises.
-- Define asset URLs by name
+
+## Example
+
+```js
+import AssetLoader, { set } from '@jongleberry/react-asset-loader'
+
+set('stripe', {
+  url: 'https://js.stripe.com/v2/',
+  type: 'js',
+  // this logic will happen before the promise resolves
+  resolve: x => x.then(() => Stripe.setPublishableKey('pk_test_somestuff'))
+})
+
+import SomeComponent from '../SomeComponent'
+
+export default AssetLoader(Component, [
+  'stripe'
+])
+```
+
+Only show the component if the Stripe SDK is loaded:
+
+```js
+import React, { Component, PropTypes } from 'react'
+
+export default class SomeComponent extends Component {
+  static propTypes = {
+    assetsFulfilled: PropTypes.bool.isRequired,
+  }
+
+  render () {
+    if (!this.props.assetsFulfilled) return null
+
+    return (
+      <div>Hello world</div>
+    )
+  }
+}
+```
+
+## API
+
+### set(name<String>, options<String|Object>)
+
+You need to define all your assets before using the asset loader.
+
+Options are:
+
+- `url` - URL of the asset
+- `resolve` - a function to wrap the promise in. Signature: `x => x.then(script => console.log(script))`
+- `type` - type of asset, either `js` or `css`
+
+### get(name<String>).then(<DOMElement|?> => {})
+
+Loads the asset, then returns the DOM element.
+If you have a `resolve()` option, it will return the result of that instead.
+
+### const WrappedComponent = AssetLoader(Component, [...assetNames])
+
+Wrap a component to load assets by names.
+The following properties will be injected into the `Component`'s props:
+
+- `assets<Object>` - `[name]: <Promise>` hash look up
+- `assetsFulfilled<Boolean>` - whether all the assets were loaded
+- `assetsRejected<Boolean>` - whether one of the assets failed to load
 
 [npm-image]: https://img.shields.io/npm/v/@jongleberry/react-asset-loader.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@jongleberry/react-asset-loader
