@@ -3,9 +3,9 @@ import React, { Component, PropTypes } from 'react'
 import renderer from 'react-test-renderer'
 import assert from 'assert'
 
-import AssetLoader, { AssetMap } from '..'
+import AssetLoader, { get, set } from '..'
 
-const src = 'https://js.stripe.com/v2/'
+set('stripe', 'https://js.stripe.com/v2/')
 
 it('should load the assets', async () => {
   class Child extends Component {
@@ -28,7 +28,7 @@ it('should load the assets', async () => {
   }
 
   const Thing = AssetLoader(Child, [
-    src
+    'stripe'
   ])
 
   let component = renderer.create(<Thing className='className' />)
@@ -38,8 +38,9 @@ it('should load the assets', async () => {
 
   assert.equal('className', tree.props.className)
 
-  const promise = AssetMap.get(src)
+  const promise = get('stripe')
   assert(promise)
   assert.equal('function', typeof promise.then)
   await promise
+  assert(promise.fulfilled)
 })

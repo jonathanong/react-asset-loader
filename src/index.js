@@ -1,12 +1,12 @@
 
 import React from 'react'
 
-import { loadAsset } from './loaders'
+import { loadScript, loadStylesheet, loadAsset } from './loaders'
+import { get, set } from './manifest'
 
-// global cache of assets loaded
-export const AssetMap = new Map()
+export { get, set, loadScript, loadStylesheet, loadAsset }
 
-export default (Component, urls) => (
+export default (Component, assetNames) => (
   class AssetLoader extends Component {
     constructor (props) {
       super(props)
@@ -18,20 +18,13 @@ export default (Component, urls) => (
       }
     }
 
+    // NOTE: does not support changing assets
     componentDidMount () {
-      this.loadAssets()
-    }
+      const assets = {}
 
-    loadAssets () {
-      const { assets } = this.state
-
-      const promises = urls.map(url => {
-        // already loaded
-        let promise = AssetMap.get(url)
-        if (!promise) {
-          promise = loadAsset(url)
-          AssetMap.set(url, promise)
-        }
+      const promises = assetNames.map(name => {
+        const promise = get(name)
+        assets[name] = promise
         return promise
       })
 
@@ -51,9 +44,8 @@ export default (Component, urls) => (
     }
 
     render () {
-      const props = Object.assign({}, this.props, this.state)
       return (
-        <Component {...props} />
+        <Component {...Object.assign({}, this.props, this.state)} />
       )
     }
   }

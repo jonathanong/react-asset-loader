@@ -32,7 +32,7 @@ export const loadStylesheet = href => new Promise((resolve, reject) => {
 })
 
 export const loadAsset = url => {
-  if (/\.m?js$/.test(url) || /\bjs\b/.test(url)) return wrapPromise(loadScript(url))
-  if (/\.css$/.test(url) || /bcss\b/.test(url)) return wrapPromise(loadStylesheet(url))
+  if (/\.m?js$/.test(url) || /\bjs\b/.test(url)) return loadScript(url)
+  if (/\.css$/.test(url) || /bcss\b/.test(url)) return loadStylesheet(url)
   throw new Error(`Unknown loader for url: ${url}`)
 }

@@ -5,7 +5,7 @@ exports[`should load the assets 1`] = `
   className="className"
 >
   <div>
-    {}
+    {"stripe":{}}
   </div>
   <div>
     false
