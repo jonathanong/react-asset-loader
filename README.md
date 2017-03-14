@@ -11,6 +11,9 @@ A wrapper component that loads assets for you.
 Useful when you need to load external scripts only on certain components.
 
 - Loads scripts only once per URL globally.
+- Option to add global callbacks to scripts loads.
+- Supports CSS.
+- Simplified control flow using promises.
 
 [npm-image]: https://img.shields.io/npm/v/@jongleberry/react-asset-loader.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@jongleberry/react-asset-loader
