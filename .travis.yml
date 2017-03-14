@@ -1,0 +1,10 @@
+node_js:
+  - 6
+  - 7
+  - latest
+language: node_js
+sudo: false
+script:
+  - npm run lint
+  - npm test
+  - npm install codecov && ./node_modules/.bin/codecov
