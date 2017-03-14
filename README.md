@@ -10,9 +10,9 @@
 A wrapper component that loads assets for you.
 Useful when you need to load external scripts only on certain components.
 
-- Define asset URLs globally by name.
+- Define asset URLs by name.
 - Loads assets only once per URL globally.
-- Option to add global callbacks to scripts loads.
+- Option to add callbacks to asset loads.
 - Supports CSS.
 - Simplified control flow using promises.
 
