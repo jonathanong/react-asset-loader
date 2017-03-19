@@ -31,8 +31,16 @@ export const loadStylesheet = href => new Promise((resolve, reject) => {
   document.head.appendChild(link)
 })
 
+export const isJS = (url, type) => {
+  return type === 'js' || /\.m?js$/.test(url) || /\bjs\b/.test(url)
+}
+
+export const isCSS = (url, type) => {
+  return type === 'css' || /\.css$/.test(url) || /\bcss\b/.test(url)
+}
+
 export const loadAsset = (url, type) => {
-  if (type === 'js' || /\.m?js$/.test(url) || /\bjs\b/.test(url)) return loadScript(url)
-  if (type === 'css' || /\.css$/.test(url) || /bcss\b/.test(url)) return loadStylesheet(url)
+  if (isJS(url, type)) return loadScript(url)
+  if (isCSS(url, type)) return loadStylesheet(url)
   throw new Error(`Unknown loader for url: ${url}`)
 }
