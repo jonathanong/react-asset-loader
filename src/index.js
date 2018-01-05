@@ -7,7 +7,7 @@ import { get, set } from './manifest'
 export { get, set, loadScript, loadStylesheet, loadAsset }
 
 export default (Component, assetNames) => (
-  class AssetLoader extends Component {
+  class AssetLoader extends React.Component {
     constructor (props) {
       super(props)
 

@@ -1,6 +1,7 @@
 
-import React, { Component, PropTypes } from 'react'
 import renderer from 'react-test-renderer'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import assert from 'assert'
 
 import AssetLoader, { get, set } from '..'
